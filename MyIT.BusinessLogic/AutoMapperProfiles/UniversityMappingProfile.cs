@@ -19,5 +19,11 @@ public class UniversityMappingProfile : Profile
         
         CreateMap<GroupDto, Group>()
             .ReverseMap();
+        
+        CreateMap<PsychologistDto, Psychologist>()
+            .ReverseMap();
+        
+        CreateMap<StudentDto, Student>()
+            .ReverseMap();
     }
 }

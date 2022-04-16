@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyIT.DataAccess.Utils;
 
@@ -11,9 +12,10 @@ using MyIT.DataAccess.Utils;
 namespace MyIT.DataAccess.Migrations
 {
     [DbContext(typeof(MyITDbContext))]
-    partial class MyITDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220416095249_UpdateSession")]
+    partial class UpdateSession
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -274,6 +276,7 @@ namespace MyIT.DataAccess.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("PhotoPath")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

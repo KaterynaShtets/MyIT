@@ -18,6 +18,8 @@ namespace MyIT.BusinessLogic.DependencyInjection
             services.AddScoped<IFacultyService, FacultyService>();
             services.AddScoped<IEducationalProgramService, EducationalProgramService>();
             services.AddScoped<IGroupService, GroupService>();
+            services.AddScoped<IPsychologistService, PsychologistService>();
+            services.AddScoped<IStudentService, StudentService>();
             
             services.AddAutoMapper(typeof(ServiceCollectionExtensions));
         }

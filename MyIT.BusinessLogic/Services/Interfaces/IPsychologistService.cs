@@ -1,6 +1,12 @@
-﻿namespace MyIT.BusinessLogic.Services.Interfaces;
+﻿using MyIT.BusinessLogic.DataTransferObjects;
 
-public class IPsychologistService
+namespace MyIT.BusinessLogic.Services.Interfaces;
+
+public interface IPsychologistService
 {
-    
+    Task<IEnumerable<PsychologistDto>> GetAllPsychologistAsync();
+    Task<PsychologistDto> GetPsychologistByIdAsync(Guid psychologistId);
+    Task AddPsychologistAsync(PsychologistDto psychologistDto);
+    Task UpdatePsychologistAsync(Guid id, PsychologistDto psychologistDto);
+    Task DeletePsychologistAsync(Guid psychologistId);
 }

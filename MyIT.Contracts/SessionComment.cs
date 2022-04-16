@@ -1,8 +1,14 @@
-﻿namespace MyIT.Contracts;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace MyIT.Contracts;
 
 public class SessionComments : BaseContract
 {
-    public string? Comment { get; set; }
+    [Required]
+    public string Comment { get; set; }
+    
+    [Required]
+    public bool IsPublic { get; set; }
     
     public Guid SessionId { get; set; }
     

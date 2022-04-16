@@ -9,9 +9,7 @@ public class Session : BaseContract
     
     [Required]
     public bool IsHandled { get; set; }
-    
-    public bool? IsConfirmed { get; set; }
-    
+
     public string? Problem { get; set; }
     
     public Guid StudentId { get; set; }
