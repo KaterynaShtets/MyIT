@@ -7,11 +7,11 @@ namespace MyIT.API.Controllers;
 
 [ApiController]
 [Route("api/groups")]
-public class GroupController  : Controller
+public class GroupsController  : Controller
 {
     private readonly IGroupService _groupService;
 
-    public GroupController(IGroupService groupService)
+    public GroupsController(IGroupService groupService)
     {
         _groupService = groupService;
     }
@@ -24,7 +24,7 @@ public class GroupController  : Controller
         return Ok(groups);
     }
     
-    [HttpGet("{id:Guid}", Name = nameof(GroupController) + nameof(GetByIdAsync))]
+    [HttpGet("{id:Guid}", Name = nameof(GroupsController) + nameof(GetByIdAsync))]
     public async Task<IActionResult> GetByIdAsync(Guid id)
     {
         var group = await _groupService.GetGroupByIdAsync(id);
