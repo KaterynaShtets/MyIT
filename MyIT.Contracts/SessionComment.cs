@@ -2,7 +2,7 @@
 
 namespace MyIT.Contracts;
 
-public class SessionComments : BaseContract
+public class SessionComment : BaseContract
 {
     [Required]
     public string Comment { get; set; }

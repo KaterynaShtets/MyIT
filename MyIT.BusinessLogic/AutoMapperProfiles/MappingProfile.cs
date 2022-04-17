@@ -4,9 +4,9 @@ using MyIT.Contracts;
 
 namespace MyIT.BusinessLogic.AutoMapperProfiles;
 
-public class UniversityMappingProfile : Profile
+public class MappingProfile : Profile
 {
-    public UniversityMappingProfile()
+    public MappingProfile()
     {
         CreateMap<UniversityDto, University>()
             .ReverseMap();
@@ -24,6 +24,15 @@ public class UniversityMappingProfile : Profile
             .ReverseMap();
         
         CreateMap<StudentDto, Student>()
+            .ReverseMap();
+        
+        CreateMap<SessionDto, Session>()
+            .ReverseMap();
+        
+        CreateMap<CreateAndUpdateSessionDto, Session>()
+            .ReverseMap();
+        
+        CreateMap<SessionCommentDto, SessionComment>()
             .ReverseMap();
     }
 }

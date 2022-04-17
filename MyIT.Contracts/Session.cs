@@ -20,5 +20,5 @@ public class Session : BaseContract
     
     public Psychologist Psychologist { get; set; }
     
-    public ICollection<SessionComments> SessionComments { get; set; }
+    public ICollection<SessionComment> SessionComments { get; set; }
 }

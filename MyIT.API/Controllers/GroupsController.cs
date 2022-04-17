@@ -7,7 +7,7 @@ namespace MyIT.API.Controllers;
 
 [ApiController]
 [Route("api/groups")]
-public class GroupsController  : Controller
+public class GroupsController : Controller
 {
     private readonly IGroupService _groupService;
 

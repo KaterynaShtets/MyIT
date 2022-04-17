@@ -10,7 +10,7 @@ namespace MyIT.DataAccess.Utils
         public virtual DbSet<Test> Tests { get; set; }
         public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<Speciality> Specialities { get; set; }
-        public virtual DbSet<SessionComments> SessionComments { get; set; }
+        public virtual DbSet<SessionComment> SessionComments { get; set; }
         public virtual DbSet<Session> Sessions { get; set; }
         public virtual DbSet<PsychologistSpeciality> PsychologistSpecialities { get; set; }
         public virtual DbSet<Psychologist> Psychologists { get; set; }

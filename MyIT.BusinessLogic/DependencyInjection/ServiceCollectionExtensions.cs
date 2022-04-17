@@ -20,6 +20,8 @@ namespace MyIT.BusinessLogic.DependencyInjection
             services.AddScoped<IGroupService, GroupService>();
             services.AddScoped<IPsychologistService, PsychologistService>();
             services.AddScoped<IStudentService, StudentService>();
+            services.AddScoped<ISessionService, SessionService>();
+            services.AddScoped<ISessionCommentService, SessionCommentService>();
             
             services.AddAutoMapper(typeof(ServiceCollectionExtensions));
         }

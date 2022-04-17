@@ -7,11 +7,9 @@ public class Psychologist : BaseContract
     [Required]
     public string FullName { get; set; }
     
-    [Required]
-    public string PhotoPath { get; set; }
+    public string? PhotoPath { get; set; }
     
-    [Required]
-    public string DiplomPath { get; set; }
+    public string? DiplomPath { get; set; }
     
     [Required]
     public string Email { get; set; }
