@@ -22,6 +22,7 @@ namespace MyIT.BusinessLogic.DependencyInjection
             services.AddScoped<IStudentService, StudentService>();
             services.AddScoped<ISessionService, SessionService>();
             services.AddScoped<ISessionCommentService, SessionCommentService>();
+            services.AddScoped<ISpecialityService, SpecialtyService>();
             
             services.AddAutoMapper(typeof(ServiceCollectionExtensions));
         }

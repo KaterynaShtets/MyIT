@@ -23,7 +23,7 @@ public class PsychologistsController : Controller
 
         return Ok(psychologists);
     }
-    
+
     [HttpGet("{id:Guid}", Name = nameof(PsychologistsController) + nameof(GetByIdAsync))]
     public async Task<IActionResult> GetByIdAsync(Guid id)
     {
