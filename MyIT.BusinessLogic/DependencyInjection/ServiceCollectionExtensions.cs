@@ -17,7 +17,7 @@ namespace MyIT.BusinessLogic.DependencyInjection
             this IServiceCollection services,
             IConfiguration configuration)
         {
-            string secretName = "myint-main-db-secret";
+            string secretName = "arn:aws:secretsmanager:eu-west-1:768105649397:secret:myint-main-db-secret-i4u9KE";
             string region = "eu-west-1";
             string secret = "";
 
@@ -33,6 +33,8 @@ namespace MyIT.BusinessLogic.DependencyInjection
 
             response = client.GetSecretValueAsync(request).Result;
             secret = response.SecretString;
+            
+            Console.WriteLine(secret);
             
             services.AddUnitOfWork(secret);
 
