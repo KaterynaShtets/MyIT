@@ -21,7 +21,8 @@ namespace MyIT.BusinessLogic.DependencyInjection
             string secret = "";
             MemoryStream memoryStream = new MemoryStream();
             IAmazonSecretsManager client = new AmazonSecretsManagerClient(RegionEndpoint.GetBySystemName(region));
-            GetSecretValueRequest request = new GetSecretValueRequest();request.SecretId = secretName;
+            GetSecretValueRequest request = new GetSecretValueRequest();
+            request.SecretId = secretName;
             request.VersionStage = "AWSCURRENT";
             GetSecretValueResponse response = null;
             response = client.GetSecretValueAsync(request).Result;
