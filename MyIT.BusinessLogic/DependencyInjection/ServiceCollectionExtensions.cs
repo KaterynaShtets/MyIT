@@ -17,22 +17,20 @@ namespace MyIT.BusinessLogic.DependencyInjection
             this IServiceCollection services,
             IConfiguration configuration)
         {
-            string secretName = "myint-main-db-secret";
+            string secretName = "arn:aws:secretsmanager:eu-west-1:768105649397:secret:myint-main-db-secret-i4u9KE";
             string region = "eu-west-1";
             string secret = "";
-            
-            string ak = Environment.GetEnvironmentVariable("ACCESS_KEY");
-            string sk = Environment.GetEnvironmentVariable("SECRET_KEY");
-            
-            AWSCredentials creds = new BasicAWSCredentials(ak, sk);
-            
+
             MemoryStream memoryStream = new MemoryStream();
-            IAmazonSecretsManager client = new AmazonSecretsManagerClient(creds, RegionEndpoint.GetBySystemName(region));
+
+            IAmazonSecretsManager client = new AmazonSecretsManagerClient(RegionEndpoint.GetBySystemName(region));
+
             GetSecretValueRequest request = new GetSecretValueRequest();
             request.SecretId = secretName;
             request.VersionStage = "AWSCURRENT";
-            
+
             GetSecretValueResponse response = null;
+
             response = client.GetSecretValueAsync(request).Result;
             secret = response.SecretString;
             
