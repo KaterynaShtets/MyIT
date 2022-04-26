@@ -17,7 +17,7 @@ namespace MyIT.BusinessLogic.DependencyInjection
             this IServiceCollection services,
             IConfiguration configuration)
         {
-            string secretName = "arn:aws:secretsmanager:eu-west-1:768105649397:secret:myint-main-db-secret-i4u9KE";
+            string secretName = "myint-main-db-secret";
             string region = "eu-west-1";
             string secret = "";
 
