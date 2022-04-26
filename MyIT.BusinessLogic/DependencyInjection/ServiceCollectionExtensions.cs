@@ -1,5 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Amazon;
+using Amazon.SecretsManager;
+using Amazon.SecretsManager.Model;
+
 using MyIT.BusinessLogic.Services;
 using MyIT.BusinessLogic.Services.Interfaces;
 using MyIT.DataAccess.DependencyInjection;
@@ -12,7 +16,18 @@ namespace MyIT.BusinessLogic.DependencyInjection
             this IServiceCollection services,
             IConfiguration configuration)
         {
-            services.AddUnitOfWork(configuration.GetConnectionString("MyITDbConnectionString"));
+            string secretName = "myint-main-db-secret";
+            string region = "eu-west-1";
+            string secret = "";
+            MemoryStream memoryStream = new MemoryStream();
+            IAmazonSecretsManager client = new AmazonSecretsManagerClient(RegionEndpoint.GetBySystemName(region));
+            GetSecretValueRequest request = new GetSecretValueRequest();request.SecretId = secretName;
+            request.VersionStage = "AWSCURRENT";
+            GetSecretValueResponse response = null;
+            response = client.GetSecretValueAsync(request).Result;
+            secret = response.SecretString;
+            
+            services.AddUnitOfWork(secret);
 
             services.AddScoped<IUniversityService, UniversityService>();
             services.AddScoped<IFacultyService, FacultyService>();
