@@ -4,17 +4,15 @@ namespace MyIT.Contracts;
 
 public class AssignedStudentTest : BaseContract
 {
-    [Required]
     public DateTime Date { get; set; }
     
-    [Required]
     public bool IsCompleted { get; set; }
     
-    [Required]
-    public string TestInterpretation { get; set; }
+    public string? TestInterpretation { get; set; }
     
-    [Required]
-    public string ResultPath { get; set; }
+    public string? ResultJson { get; set; }
+    
+    public string? ResultInterpretationJson { get; set; }
     
     public Guid StudentId { get; set; }
     

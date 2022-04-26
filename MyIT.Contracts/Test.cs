@@ -10,8 +10,7 @@ public class Test : BaseContract
     [Required]
     public bool IsShared { get; set; }
     
-    [Required]
-    public string ContentUrl { get; set; }
+    public string? ContentJson { get; set; }
     
     public Guid PsychologistId { get; set; }
     
