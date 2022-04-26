@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Amazon;
+using Amazon.Runtime;
 using Amazon.SecretsManager;
 using Amazon.SecretsManager.Model;
 
@@ -20,8 +21,13 @@ namespace MyIT.BusinessLogic.DependencyInjection
             string region = "eu-west-1";
             string secret = "";
             
+            string ak = Environment.GetEnvironmentVariable("ACCESS_KEY");
+            string sk = Environment.GetEnvironmentVariable("SECRET_KEY");
+            
+            AWSCredentials creds = new BasicAWSCredentials(ak, sk);
+            
             MemoryStream memoryStream = new MemoryStream();
-            IAmazonSecretsManager client = new AmazonSecretsManagerClient(RegionEndpoint.GetBySystemName(region));
+            IAmazonSecretsManager client = new AmazonSecretsManagerClient(creds, RegionEndpoint.GetBySystemName(region));
             GetSecretValueRequest request = new GetSecretValueRequest();
             request.SecretId = secretName;
             request.VersionStage = "AWSCURRENT";
