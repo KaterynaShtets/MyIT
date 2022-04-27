@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Amazon;
+using Amazon.Runtime;
 using Amazon.SecretsManager;
 using Amazon.SecretsManager.Model;
 
@@ -16,16 +17,24 @@ namespace MyIT.BusinessLogic.DependencyInjection
             this IServiceCollection services,
             IConfiguration configuration)
         {
-            string secretName = "myint-main-db-secret";
+            string secretName = "arn:aws:secretsmanager:eu-west-1:768105649397:secret:myint-main-db-secret-i4u9KE";
             string region = "eu-west-1";
             string secret = "";
+
             MemoryStream memoryStream = new MemoryStream();
+
             IAmazonSecretsManager client = new AmazonSecretsManagerClient(RegionEndpoint.GetBySystemName(region));
-            GetSecretValueRequest request = new GetSecretValueRequest();request.SecretId = secretName;
+
+            GetSecretValueRequest request = new GetSecretValueRequest();
+            request.SecretId = secretName;
             request.VersionStage = "AWSCURRENT";
+
             GetSecretValueResponse response = null;
+
             response = client.GetSecretValueAsync(request).Result;
             secret = response.SecretString;
+            
+            Console.WriteLine(secret);
             
             services.AddUnitOfWork(secret);
 
