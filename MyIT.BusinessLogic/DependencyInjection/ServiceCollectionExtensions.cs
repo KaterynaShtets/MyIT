@@ -22,8 +22,6 @@ namespace MyIT.BusinessLogic.DependencyInjection
             string region = "eu-west-1";
             string secret = "";
 
-            MemoryStream memoryStream = new MemoryStream();
-
             IAmazonSecretsManager client = new AmazonSecretsManagerClient(RegionEndpoint.GetBySystemName(region));
 
             GetSecretValueRequest request = new GetSecretValueRequest();
@@ -31,9 +29,9 @@ namespace MyIT.BusinessLogic.DependencyInjection
             request.VersionStage = "AWSCURRENT";
 
             GetSecretValueResponse response = null;
-
             response = client.GetSecretValueAsync(request).Result;
-            secret = JObject.Parse(response.SecretString)["connection-string"].ToString();
+            secret = JObject.Parse(response.SecretString)["connection-string"]
+                .ToString();
 
             services.AddUnitOfWork(secret);
 
