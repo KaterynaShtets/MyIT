@@ -8,6 +8,7 @@ using Amazon.SecretsManager.Model;
 using MyIT.BusinessLogic.Services;
 using MyIT.BusinessLogic.Services.Interfaces;
 using MyIT.DataAccess.DependencyInjection;
+using Newtonsoft.Json.Linq;
 
 namespace MyIT.BusinessLogic.DependencyInjection
 {
@@ -32,10 +33,8 @@ namespace MyIT.BusinessLogic.DependencyInjection
             GetSecretValueResponse response = null;
 
             response = client.GetSecretValueAsync(request).Result;
-            secret = response.SecretString;
-            
-            Console.WriteLine(secret);
-            
+            secret = JObject.Parse(response.SecretString)["connection-string"].ToString();
+
             services.AddUnitOfWork(secret);
 
             services.AddScoped<IUniversityService, UniversityService>();
