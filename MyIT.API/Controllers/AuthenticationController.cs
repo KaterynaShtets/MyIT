@@ -27,4 +27,22 @@ public class AuthenticationController : Controller
 
         return Ok(response.AuthenticationResult);
     }
+
+    [HttpPost]
+    [Route("changePassword")]
+    public async Task<IActionResult> ChangePassword([FromBody] ChangeUserPasswordModel changePasswordRequest)
+    {
+        var token = HttpContext.Request.Headers["Authorization"].ToString().Split(' ')[1];
+
+        var client = new AmazonCognitoIdentityProviderClient(RegionEndpoint.GetBySystemName("eu-west-1"));
+
+        var response = await client.ChangePasswordAsync(new ChangePasswordRequest
+        {
+            AccessToken = token,
+            PreviousPassword = changePasswordRequest.Password,
+            ProposedPassword = changePasswordRequest.NewPassword
+        });
+
+        return Ok(response);
+    }
 }
