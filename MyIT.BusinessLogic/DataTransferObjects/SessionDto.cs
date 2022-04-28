@@ -1,6 +1,6 @@
 ﻿namespace MyIT.BusinessLogic.DataTransferObjects;
 
-public class SessionDto
+public class SessionDto : BaseDto
 {
     public DateTime Date { get; set; }
     

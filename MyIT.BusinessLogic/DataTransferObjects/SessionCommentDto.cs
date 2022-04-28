@@ -1,6 +1,6 @@
 ﻿namespace MyIT.BusinessLogic.DataTransferObjects;
 
-public class SessionCommentDto
+public class SessionCommentDto : BaseDto
 {
     public string Comment { get; set; }
     

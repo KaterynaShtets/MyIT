@@ -1,6 +1,6 @@
 ﻿namespace MyIT.BusinessLogic.DataTransferObjects;
 
-public class EducationalProgramDto
+public class EducationalProgramDto : BaseDto
 {
     public string Name { get; set; }  = string.Empty;// Програмна інженерія
     

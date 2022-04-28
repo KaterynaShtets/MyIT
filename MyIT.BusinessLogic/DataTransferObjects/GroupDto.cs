@@ -1,6 +1,6 @@
 ﻿namespace MyIT.BusinessLogic.DataTransferObjects;
 
-public class GroupDto
+public class GroupDto : BaseDto
 {
     public int Number { get; set; } // 1 
 

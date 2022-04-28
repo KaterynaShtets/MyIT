@@ -1,6 +1,6 @@
 ﻿namespace MyIT.BusinessLogic.DataTransferObjects;
 
-public class UniversityDto
+public class UniversityDto : BaseDto
 {
     public string Name { get; set; } = string.Empty;
     

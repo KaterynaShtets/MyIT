@@ -1,6 +1,6 @@
 ﻿namespace MyIT.BusinessLogic.DataTransferObjects;
 
-public class TestDto
+public class TestDto : BaseDto
 {
     public string Name { get; set; }
     

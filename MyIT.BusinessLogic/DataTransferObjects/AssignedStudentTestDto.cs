@@ -1,6 +1,6 @@
 ﻿namespace MyIT.BusinessLogic.DataTransferObjects;
 
-public class AssignedStudentTestDto
+public class AssignedStudentTestDto : BaseDto
 {
     public DateTime Date { get; set; }
     
