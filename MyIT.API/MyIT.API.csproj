@@ -19,4 +19,8 @@
       <ProjectReference Include="..\MyIT.BusinessLogic\MyIT.BusinessLogic.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Remove="webhook-details.json" />
+    </ItemGroup>
+
 </Project>
