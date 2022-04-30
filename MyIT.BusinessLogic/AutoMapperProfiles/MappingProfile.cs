@@ -40,5 +40,8 @@ public class MappingProfile : Profile
         
         CreateMap<TestDto, Test>()
             .ReverseMap();
+
+        CreateMap<AssignedStudentTestDto, AssignedStudentTest>()
+            .ReverseMap();
     }
 }

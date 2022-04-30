@@ -2,6 +2,8 @@
 
 public class AssignedStudentTestDto : BaseDto
 {
+    public TestDto Test { get; set; }
+
     public DateTime Date { get; set; }
     
     public bool IsCompleted { get; set; }

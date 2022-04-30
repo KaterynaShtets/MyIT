@@ -7,7 +7,7 @@ using MyIT.DataAccess.Interfaces;
 
 namespace MyIT.BusinessLogic.Services;
 
-public class TestService: ITestService
+public class TestService : ITestService
 {
     private readonly IRepository<Test> _testRepository;
     private readonly IRepository<AssignedStudentTest> _assignedStudentTestRepository;
@@ -24,16 +24,16 @@ public class TestService: ITestService
 
     public async Task<IEnumerable<TestDto>> GetAllTestAsync(Guid psychologistId)
     {
-        var tests =  await _testRepository.GetAsync(x=>x.PsychologistId == psychologistId);
+        var tests = await _testRepository.GetAsync(x => x.PsychologistId == psychologistId);
         return _mapper.Map<IEnumerable<TestDto>>(tests);
     }
-    
+
     public async Task<TestDto> GetTestByIdAsync(Guid testId)
     {
         var test = await _testRepository.GetAsync(testId);
         return _mapper.Map<TestDto>(test);
     }
-    
+
     public async Task AddTestAsync(Guid psychologistId, TestDto testDto)
     {
         var test = _mapper.Map<Test>(testDto);
@@ -42,7 +42,7 @@ public class TestService: ITestService
 
         await _unitOfWork.SaveChangesAsync();
     }
-    
+
     public async Task UpdateTestAsync(Guid id, TestDto testDto)
     {
         var test = await _testRepository.GetAsync(id);
@@ -52,22 +52,21 @@ public class TestService: ITestService
         _testRepository.Update(testMapped);
         await _unitOfWork.SaveChangesAsync();
     }
-    
+
     public async Task DeleteTestAsync(Guid testId)
     {
         _testRepository.Delete(testId);
         await _unitOfWork.SaveChangesAsync();
     }
-    
-    public async Task<IEnumerable<TestDto>> GetAllStudentAssignedTests(Guid studentId)
+
+    public async Task<IEnumerable<AssignedStudentTestDto>> GetAllStudentAssignedTests(Guid studentId)
     {
-        var assignedTests =  await _assignedStudentTestRepository.GetAsync(
-            filter: x=>x.StudentId == studentId,
-            includeProperties: x=>x.Include(s => s.Test));
-        var tests = assignedTests.Select(x => x.Test);
-        return _mapper.Map<IEnumerable<TestDto>>(tests);
+        var assignedTests = await _assignedStudentTestRepository.GetAsync(
+            filter: x => x.StudentId == studentId,
+            includeProperties: x => x.Include(s => s.Test));
+        return _mapper.Map<IEnumerable<AssignedStudentTestDto>>(assignedTests);
     }
-    
+
     public async Task AssignTest(Guid testId, Guid studentId)
     {
         _assignedStudentTestRepository.Create(
