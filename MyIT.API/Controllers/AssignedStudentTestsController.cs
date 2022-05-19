@@ -30,4 +30,12 @@ public class AssignedStudentTestsController : Controller
         return Ok();
     }
     
+    [HttpPost("{assignedTestId}")]
+    public async Task<IActionResult> AddTestResultAsync([FromRoute]Guid assignedTestId,[FromBody] string resultJson)
+    {
+        await _testService.AddTestResultAsync(assignedTestId, resultJson);
+
+        return Ok();
+    }
+    
 }

@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using MyIT.BusinessLogic.DataTransferObjects;
+using MyIT.BusinessLogic.Helpers;
 using MyIT.BusinessLogic.Services.Interfaces;
 using MyIT.Contracts;
 using MyIT.DataAccess.Interfaces;
+using Newtonsoft.Json;
 
 namespace MyIT.BusinessLogic.Services;
 
@@ -59,6 +61,41 @@ public class TestService : ITestService
         await _unitOfWork.SaveChangesAsync();
     }
 
+    public async Task AddTestResultAsync(Guid assignedTestId, string resultJson)
+    {
+        var assignedTest = await _assignedStudentTestRepository.GetAsync(
+            assignedTestId,
+            includeProperties: x => x.Include(at => at.Test));
+        assignedTest.IsCompleted = true;
+
+        if (!string.IsNullOrEmpty(resultJson))
+        {
+            var resultInterpretationJson = string.Empty;
+            
+            if (assignedTest.Test.Name == "Draw a person")
+            {
+                var drawAPersonTestResult = JsonConvert.DeserializeObject<DrawAPersonTestResult>(resultJson);
+                var resultNumber = drawAPersonTestResult!.Triangle * 100 + drawAPersonTestResult.Circle * 10 + drawAPersonTestResult.Square;
+                resultInterpretationJson = JsonConvert.SerializeObject(DrawAPersonTestHelper.GetDrawAPersonTestResult(resultNumber));
+            }
+            
+            if (assignedTest.Test.Name == "IT speciality test")
+            {
+                var itSpecialtyTestResult = JsonConvert.DeserializeObject<ITSpecialtyTestResult>(resultJson);
+                var drawAPersonTestResult = (await _assignedStudentTestRepository
+                    .GetAsync(filter: x => x.StudentId == assignedTest.StudentId && x.Test.Name == "Draw a person")).First().ResultInterpretationJson;
+                var personType = JsonConvert.DeserializeObject<DrawAPersonInterpretationResult>(drawAPersonTestResult!)!.PersonType;
+                var itSpecialtyIndex = GetItSpecialtyIndex(itSpecialtyTestResult!);
+                resultInterpretationJson = DrawAPersonTestHelper.GetITSpecialityTestResult(personType, itSpecialtyIndex).ToString();
+            }
+
+            assignedTest.ResultInterpretationJson = resultInterpretationJson;
+        }
+        
+        _assignedStudentTestRepository.Update(assignedTest);
+        await _unitOfWork.SaveChangesAsync();
+    }
+
     public async Task<IEnumerable<AssignedStudentTestDto>> GetAllStudentAssignedTests(Guid studentId)
     {
         var assignedTests = await _assignedStudentTestRepository.GetAsync(
@@ -78,5 +115,11 @@ public class TestService : ITestService
                 IsCompleted = false
             });
         await _unitOfWork.SaveChangesAsync();
+    }
+
+    private static int GetItSpecialtyIndex(ITSpecialtyTestResult itSpecialtyTestResult)
+    {
+        var results = new List<int> { itSpecialtyTestResult!.A, itSpecialtyTestResult.B, itSpecialtyTestResult.C };
+        return results.IndexOf(results.Max());
     }
 }

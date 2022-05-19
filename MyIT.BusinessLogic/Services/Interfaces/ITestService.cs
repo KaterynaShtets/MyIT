@@ -11,4 +11,5 @@ public interface ITestService
     Task AssignTest(Guid testId, Guid studentId);
     Task UpdateTestAsync(Guid id, TestDto testDto);
     Task DeleteTestAsync(Guid testId);
+    Task AddTestResultAsync(Guid assignedTestId, string resultJson);
 }
