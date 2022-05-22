@@ -21,21 +21,21 @@ public class AssignedStudentTestsController : Controller
 
         return Ok(tests);
     }
-    
+
     [HttpPost]
-    public async Task<IActionResult> AddPsychologistSpecialityAsync([FromQuery]Guid testId,[FromQuery] Guid studentId)
+    public async Task<IActionResult> AssignTestAsync([FromQuery] Guid testId, [FromQuery] Guid studentId)
     {
         await _testService.AssignTest(testId, studentId);
 
         return Ok();
     }
-    
+
     [HttpPost("{assignedTestId}")]
-    public async Task<IActionResult> AddTestResultAsync([FromRoute]Guid assignedTestId,[FromBody] string resultJson)
+    public async Task<IActionResult> AddTestResultAsync([FromRoute] Guid assignedTestId, [FromBody] string resultJson)
     {
         await _testService.AddTestResultAsync(assignedTestId, resultJson);
 
         return Ok();
     }
-    
+
 }
