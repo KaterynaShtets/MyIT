@@ -66,7 +66,9 @@ public class TestService : ITestService
         var assignedTest = await _assignedStudentTestRepository.GetAsync(
             assignedTestId,
             includeProperties: x => x.Include(at => at.Test));
+
         assignedTest.IsCompleted = true;
+        assignedTest.ResultJson = resultJson;
 
         if (!string.IsNullOrEmpty(resultJson))
         {
