@@ -12,7 +12,7 @@ public static class DrawAPersonTestHelper
                 PersonType = PersonType.Supervisor,
                 JobPositions = new [] { JobPosition.SoftwareArchitect , JobPosition.BusinessAnalyst, JobPosition.ProjectManager}
             },
-            new[] { 901, 910, 802, 811, 820, 703, 712, 721, 730, 604, 613, 622, 631, 640 }
+            new[] { 910, 811, 820,  712, 721, 730, 613, 622, 631, 640 }
         },
         {
             new DrawAPersonInterpretationResult
@@ -36,7 +36,7 @@ public static class DrawAPersonTestHelper
                 PersonType = PersonType.Scientist,
                 JobPositions = new [] { JobPosition.DevOps , JobPosition.QAEngineer, JobPosition.SoftwareArchitect}
             },
-            new[] { 307, 316, 325, 334, 343, 352, 361, 370 }
+            new[] { 316, 325, 334, 343, 352, 361, 370 }
         },
         {
             new DrawAPersonInterpretationResult
@@ -44,7 +44,7 @@ public static class DrawAPersonTestHelper
                 PersonType = PersonType.Intuitive,
                 JobPositions = new [] { JobPosition.Designer , JobPosition.BusinessAnalyst, JobPosition.ProjectManager}
             },
-            new[] { 208, 217, 226, 235, 244, 253, 262, 271, 280 }
+            new[] { 208, 217, 226, 235, 244, 271, 280 }
         },
         { 
             new DrawAPersonInterpretationResult
@@ -52,7 +52,7 @@ public static class DrawAPersonTestHelper
                 PersonType = PersonType.InventorAndDesignerAndArtist,
                 JobPositions = new [] { JobPosition.SoftwareArchitect , JobPosition.Designer, JobPosition.BusinessAnalyst}
             },
-            new[] { 109, 118, 127, 136, 145, 019, 028, 037, 046 }
+            new[] { 118, 127, 136, 145, 019, 028, 037, 046 }
             
         },
         {
@@ -61,7 +61,7 @@ public static class DrawAPersonTestHelper
                 PersonType = PersonType.Emotive,
                 JobPositions = new [] { JobPosition.Designer , JobPosition.BusinessAnalyst, JobPosition.HR}
             },
-            new[] { 550, 451, 460, 352, 361, 370, 253, 262, 271, 280, 154, 163, 172, 181, 190, 055, 064, 073, 082, 091 }
+            new[] { 253, 262, 154, 163, 172, 181, 190, 055, 064, 073, 082, 091 }
         },
         {
             new DrawAPersonInterpretationResult
@@ -69,7 +69,7 @@ public static class DrawAPersonTestHelper
                 PersonType = PersonType.NonEmotive,
                 JobPositions = new [] { JobPosition.Developer , JobPosition.QAEngineer, JobPosition.ProjectManager}
             },
-            new[] { 550, 451, 460, 352, 361, 370, 253, 262, 271, 280, 154, 163, 172, 181, 190, 055, 064, 073, 082, 091 }
+            new[] { 901, 802, 703, 604, 307,  109 }
         }
     };
 
