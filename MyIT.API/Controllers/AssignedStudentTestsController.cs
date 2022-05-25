@@ -25,9 +25,9 @@ public class AssignedStudentTestsController : Controller
     [HttpPost]
     public async Task<IActionResult> AssignTestAsync([FromQuery] Guid testId, [FromQuery] Guid studentId)
     {
-        await _testService.AssignTest(testId, studentId);
+        var assignedTestId = await _testService.AssignTest(testId, studentId);
 
-        return Ok();
+        return Ok(new { studentAssignedTestId = assignedTestId });
     }
 
     [HttpPost("{assignedTestId}")]

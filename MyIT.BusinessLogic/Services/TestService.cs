@@ -106,9 +106,9 @@ public class TestService : ITestService
         return _mapper.Map<IEnumerable<AssignedStudentTestDto>>(assignedTests);
     }
 
-    public async Task AssignTest(Guid testId, Guid studentId)
+    public async Task<Guid> AssignTest(Guid testId, Guid studentId)
     {
-        _assignedStudentTestRepository.Create(
+        var assignedTestId = _assignedStudentTestRepository.Create(
             new AssignedStudentTest()
             {
                 TestId = testId,
@@ -117,6 +117,7 @@ public class TestService : ITestService
                 IsCompleted = false
             });
         await _unitOfWork.SaveChangesAsync();
+        return assignedTestId;
     }
 
     private static int GetItSpecialtyIndex(ITSpecialtyTestResult itSpecialtyTestResult)

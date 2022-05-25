@@ -8,7 +8,7 @@ public interface ITestService
     Task<IEnumerable<AssignedStudentTestDto>> GetAllStudentAssignedTests(Guid studentId);
     Task<TestDto> GetTestByIdAsync(Guid testId);
     Task AddTestAsync(Guid psychologistId, TestDto testDto);
-    Task AssignTest(Guid testId, Guid studentId);
+    Task<Guid> AssignTest(Guid testId, Guid studentId);
     Task UpdateTestAsync(Guid id, TestDto testDto);
     Task DeleteTestAsync(Guid testId);
     Task AddTestResultAsync(Guid assignedTestId, string resultJson);
