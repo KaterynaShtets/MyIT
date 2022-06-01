@@ -38,4 +38,11 @@ public class AssignedStudentTestsController : Controller
         return Ok();
     }
 
+    [HttpGet("getLastProfessionTestsResult")]
+    public async Task<IActionResult> GetLastProfessionTestsResult([FromQuery] Guid studentId)
+    {
+        var result = await _testService.GetLastProfessionTestsResult(studentId);
+
+        return Ok(result);
+    }
 }

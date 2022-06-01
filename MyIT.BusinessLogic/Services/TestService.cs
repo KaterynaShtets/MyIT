@@ -98,6 +98,32 @@ public class TestService : ITestService
         await _unitOfWork.SaveChangesAsync();
     }
 
+    public async Task<ProfessionTestsResult> GetLastProfessionTestsResult(Guid studentId)
+    {
+        var recentDrawTestResult = (await _assignedStudentTestRepository.GetAsync(
+            filter: x => x.StudentId == studentId && x.Test.Name == "Draw a person"))
+            .OrderByDescending(x => x.Date)
+            .FirstOrDefault()?
+            .ResultInterpretationJson;
+
+        var recentDrawTestResultString = JsonConvert
+            .DeserializeObject<DrawAPersonInterpretationResult>(recentDrawTestResult)?
+            .PersonType
+            .ToString();
+
+        var recentSpecialityTestResultString = (await _assignedStudentTestRepository.GetAsync(
+            filter: x => x.StudentId == studentId && x.Test.Name == "IT speciality test"))
+            .OrderByDescending(x => x.Date)
+            .FirstOrDefault()?
+            .ResultInterpretationJson;
+
+        return new ProfessionTestsResult
+        {
+            Profession = recentSpecialityTestResultString,
+            EmotionType = recentDrawTestResultString
+        };
+    }
+
     public async Task<IEnumerable<AssignedStudentTestDto>> GetAllStudentAssignedTests(Guid studentId)
     {
         var assignedTests = await _assignedStudentTestRepository.GetAsync(
