@@ -6,6 +6,7 @@ using MyIT.BusinessLogic.Services.Interfaces;
 using MyIT.Contracts;
 using MyIT.DataAccess.Interfaces;
 using Newtonsoft.Json;
+using System.Text.RegularExpressions;
 
 namespace MyIT.BusinessLogic.Services;
 
@@ -119,8 +120,8 @@ public class TestService : ITestService
 
         return new ProfessionTestsResult
         {
-            Profession = recentSpecialityTestResultString,
-            EmotionType = recentDrawTestResultString
+            Profession = Regex.Replace(recentSpecialityTestResultString, "([a-z])([A-Z])", "$1 $2"),
+            EmotionType = Regex.Replace(recentDrawTestResultString, "([a-z])([A-Z])", "$1 $2")
         };
     }
 
