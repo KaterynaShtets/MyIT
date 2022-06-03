@@ -48,6 +48,14 @@ public class PsychologistsController : Controller
         return Ok();
     }
     
+    [HttpPut("verify/{id}")]
+    public async Task<IActionResult> VerifyAsync(Guid id)
+    {
+        await _psychologistService.VerifyPsychologistAsync(id);
+
+        return Ok();
+    }
+
     [HttpDelete("{id:Guid}")]
     public async Task<IActionResult> DeleteAsync(Guid id)
     {

@@ -47,6 +47,14 @@ public class SessionsController : Controller
 
         return Ok();
     }
+    
+    [HttpPut("handle/{id}")]
+    public async Task<IActionResult> HandleAsync(Guid id)
+    {
+        await _studentService.HandleSessionAsync(id);
+
+        return Ok();
+    }
 
     [HttpDelete("{id:Guid}")]
     public async Task<IActionResult> DeleteAsync(Guid id)

@@ -9,4 +9,5 @@ public interface ISessionService
     Task AddSessionAsync(Guid studentId, Guid psychologistId, CreateAndUpdateSessionDto sessionDto);
     Task UpdateSessionAsync(Guid id, CreateAndUpdateSessionDto sessionDto);
     Task DeleteSessionIdAsync(Guid sessionId);
+    Task HandleSessionAsync(Guid sessionId);
 }

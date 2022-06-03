@@ -50,6 +50,15 @@ public class SessionService: ISessionService
         await _unitOfWork.SaveChangesAsync();
     }
     
+    public async Task HandleSessionAsync(Guid sessionId)
+    {
+        var session = await _sessionRepository.GetAsync(sessionId);
+        session.IsHandled = true;
+        _sessionRepository.Update(session);
+
+        await _unitOfWork.SaveChangesAsync();
+    }
+    
     public async Task UpdateSessionAsync(Guid id, CreateAndUpdateSessionDto sessionDto)
     {
         var session = await _sessionRepository.GetAsync(id);
