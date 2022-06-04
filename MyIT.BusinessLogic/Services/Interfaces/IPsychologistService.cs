@@ -8,6 +8,7 @@ public interface IPsychologistService
     Task<PsychologistDto> GetPsychologistByIdAsync(Guid psychologistId);
     Task AddPsychologistAsync(PsychologistDto psychologistDto);
     Task UpdatePsychologistAsync(Guid id, PsychologistDto psychologistDto);
+    Task VerifyPsychologistAsync(Guid id);
     Task DeletePsychologistAsync(Guid psychologistId);
     Task AddPsychologistSpecialityAsync(Guid psychologistId, Guid specialityId);
     Task<IEnumerable<PsychologistDto>> GetAllPsychologistsBySpeciality(Guid specialityId);

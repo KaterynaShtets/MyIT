@@ -7,6 +7,8 @@ public class Psychologist : BaseContract
     [Required]
     public string FullName { get; set; }
     
+    public bool isVerified { get; set; }
+    
     public string? PhotoPath { get; set; }
     
     public string? DiplomPath { get; set; }

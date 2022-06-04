@@ -58,6 +58,14 @@ public class PsychologistService : IPsychologistService
         _psychologistRepository.Update(psychologist);
         await _unitOfWork.SaveChangesAsync();
     }
+
+    public async Task VerifyPsychologistAsync(Guid id)
+    {
+        var psychologist = await _psychologistRepository.GetAsync(id);
+        psychologist.isVerified = true;
+        _psychologistRepository.Update(psychologist);
+        await _unitOfWork.SaveChangesAsync();
+    }
     
     public async Task DeletePsychologistAsync(Guid psychologistId)
     {

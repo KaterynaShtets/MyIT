@@ -34,7 +34,7 @@ namespace MyIT.BusinessLogic.DependencyInjection
                 .ToString();
 
             services.AddUnitOfWork(secret);
-
+            
             services.AddScoped<IUniversityService, UniversityService>();
             services.AddScoped<IFacultyService, FacultyService>();
             services.AddScoped<IEducationalProgramService, EducationalProgramService>();

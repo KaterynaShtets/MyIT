@@ -1,4 +1,6 @@
+using FluentValidation.AspNetCore;
 using Microsoft.OpenApi.Models;
+using MyIT.BusinessLogic.DataTransferObjects.Validators;
 using MyIT.BusinessLogic.DependencyInjection;
 
 namespace MyIT.API
@@ -26,6 +28,13 @@ namespace MyIT.API
                 .AllowAnyHeader()));
 
             services.AddControllers();
+            services.AddFluentValidation(x =>
+            {
+                //x.DisableDataAnnotationsValidation = true;
+                x.RegisterValidatorsFromAssemblyContaining<StudentValidator>();
+                x.RegisterValidatorsFromAssemblyContaining<PsychologistValidator>();
+                x.RegisterValidatorsFromAssemblyContaining<UniversityValidator>();
+            });
             // services.Configure<BlobStorageOptions>(Configuration.GetSection("BlobStorageOptions"));
             // services.Configure<ClassifyEmotionsOptions>(Configuration.GetSection("ClassifyEmotionsOptions"));
             //
