@@ -101,6 +101,18 @@ public class TestService : ITestService
 
     public async Task<ProfessionTestsResult> GetLastProfessionTestsResult(Guid studentId)
     {
+        var attemptsCount = (await _assignedStudentTestRepository.GetAsync(
+            filter: x => x.StudentId == studentId && x.Test.Name == "Draw a person" && x.IsCompleted))
+            .Count();
+
+        if (attemptsCount == 0)
+        {
+            return new ProfessionTestsResult
+            {
+                AttemptsCount = attemptsCount
+            };
+        }
+
         var recentDrawTestResult = (await _assignedStudentTestRepository.GetAsync(
             filter: x => x.StudentId == studentId && x.Test.Name == "Draw a person"))
             .OrderByDescending(x => x.Date)
@@ -120,6 +132,7 @@ public class TestService : ITestService
 
         return new ProfessionTestsResult
         {
+            AttemptsCount = attemptsCount,
             Profession = Regex.Replace(recentSpecialityTestResultString, "([a-z])([A-Z])", "$1 $2"),
             EmotionType = Regex.Replace(recentDrawTestResultString, "([a-z])([A-Z])", "$1 $2")
         };
