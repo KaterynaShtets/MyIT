@@ -11,4 +11,5 @@ public interface IStudentService
     Task UpdateStudentAsync(Guid id, StudentDto studentDto);
     Task DeleteStudentAsync(Guid studentId);
     Task UploadStudentPhotoStudentAsync(Guid studentId, IFormFile file);
+    Task<(byte[], string)> GetStudentPhotoStudentAsync(Guid studentId);
 }

@@ -39,7 +39,16 @@ public class StudentsController : Controller
 
         return Ok();
     }
-    
+
+    [HttpGet("download/{id}")]
+    public async Task<IActionResult> GetDocumentFromS3(Guid id)
+    {
+
+        var document = await _studentService.GetStudentPhotoStudentAsync(id);
+
+        return File(document.Item1, "application/octet-stream", document.Item2);
+    }
+
     [HttpPost]
     public async Task<IActionResult> CreateAsync([FromQuery] Guid groupId, [FromBody, Required] StudentDto studentDto)
     {
