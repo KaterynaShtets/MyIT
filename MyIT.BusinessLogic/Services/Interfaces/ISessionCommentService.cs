@@ -9,4 +9,5 @@ public interface ISessionCommentService
     Task AddSessionCommentAsync(Guid sessionId, SessionCommentDto sessionCommentDto);
     Task UpdateGroupAsync(Guid id, SessionCommentDto sessionCommentDto);
     Task DeleteSessionCommentAsync(Guid sessionCommentId);
+    Task<IEnumerable<SessionCommentDto>> GetSessionCommentsForStudent(Guid studentId);
 }

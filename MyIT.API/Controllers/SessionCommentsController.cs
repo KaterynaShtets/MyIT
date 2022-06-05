@@ -56,4 +56,12 @@ public class SessionCommentsController: Controller
 
         return NoContent();
     }
+
+    [HttpGet("/getSessionCommentsForStudent")]
+    public async Task<IActionResult> GetForStudent([FromQuery] Guid studentId)
+    {
+        var comments = await _sessionCommentService.GetSessionCommentsForStudent(studentId);
+
+        return Ok(comments);
+    }
 }
