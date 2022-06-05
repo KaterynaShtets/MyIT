@@ -60,7 +60,7 @@ public class SessionCommentService : ISessionCommentService
     public async Task<IEnumerable<SessionCommentDto>> GetSessionCommentsForStudent(Guid studentId)
     {
         var comments = (await _sessionCommentRepository.GetAsync(
-            filter: x => x.Session.StudentId == studentId,
+            filter: x => x.Session.StudentId == studentId && x.IsPublic,
             includeProperties: x => x.Include(sc => sc.Session.Psychologist))
             ).OrderBy(x => x.Session.Date);
 
