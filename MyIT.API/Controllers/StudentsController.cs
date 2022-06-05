@@ -32,6 +32,14 @@ public class StudentsController : Controller
         return Ok(student);
     }
 
+    [HttpPost("upload")]
+    public async Task<IActionResult> UploadDocumentToS3([FromQuery] Guid studentId, IFormFile file)
+    {
+        await _studentService.UploadStudentPhotoStudentAsync(studentId, file);
+
+        return Ok();
+    }
+    
     [HttpPost]
     public async Task<IActionResult> CreateAsync([FromQuery] Guid groupId, [FromBody, Required] StudentDto studentDto)
     {
