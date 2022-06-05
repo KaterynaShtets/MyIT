@@ -8,7 +8,5 @@ public class SessionDto : BaseDto
 
     public string? Problem { get; set; }
     
-    public IList<SessionCommentDto>? SessionComments { get; set; }
-    
     public PsychologistDto Psychologist { get; set; }
 }
