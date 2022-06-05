@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using MyIT.BusinessLogic.DataTransferObjects;
 using MyIT.BusinessLogic.Services.Interfaces;
 using MyIT.Contracts;
@@ -21,16 +22,19 @@ public class StudentService : IStudentService
 
     public async Task<IEnumerable<StudentDto>> GetAllStudentsAsync(Guid groupId)
     {
-        var students =  await _studentRepository.GetAsync(x=>x.GroupId == groupId);
+        var students = await _studentRepository.GetAsync(x => x.GroupId == groupId);
         return _mapper.Map<IEnumerable<StudentDto>>(students);
     }
-    
+
     public async Task<StudentDto> GetStudentByIdAsync(Guid studentId)
     {
-        var group = await _studentRepository.GetAsync(studentId);
-        return _mapper.Map<StudentDto>(group);
+        var student = (await _studentRepository.GetAsync(
+            filter: x => x.Id == studentId, 
+            includeProperties: x => x.Include(s => s.Group.EducationalProgram)))
+            .First();
+        return _mapper.Map<StudentDto>(student);
     }
-    
+
     public async Task AddStudentAsync(Guid groupId, StudentDto studentDto)
     {
         var student = _mapper.Map<Student>(studentDto);
@@ -39,7 +43,7 @@ public class StudentService : IStudentService
 
         await _unitOfWork.SaveChangesAsync();
     }
-    
+
     public async Task UpdateStudentAsync(Guid id, StudentDto studentDto)
     {
         var student = await _studentRepository.GetAsync(id);
@@ -49,7 +53,7 @@ public class StudentService : IStudentService
         _studentRepository.Update(studentMapped);
         await _unitOfWork.SaveChangesAsync();
     }
-    
+
     public async Task DeleteStudentAsync(Guid studentId)
     {
         _studentRepository.Delete(studentId);

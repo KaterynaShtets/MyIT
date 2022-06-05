@@ -7,4 +7,6 @@ public class StudentDto : BaseDto
     public string Email { get; set; }
     
     public DateTime DOB { get; set; }
+
+    public GroupDto Group { get; set; }
 }
