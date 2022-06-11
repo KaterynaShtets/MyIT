@@ -9,17 +9,17 @@ namespace MyIT.API.Controllers;
 [Route("api/sessions")]
 public class SessionsController : Controller
 {
-    private readonly ISessionService _studentService;
+    private readonly ISessionService _sessionService;
 
     public SessionsController(ISessionService sessionService)
     {
-        _studentService = sessionService;
+        _sessionService = sessionService;
     }
 
     [HttpGet]
     public async Task<IActionResult> GetAllAsync([FromQuery] Guid studentId, [FromQuery] Guid psychologistId)
     {
-        var sessions = await _studentService.GetAllPsychologistAndStudentSessionsAsync(studentId, psychologistId);
+        var sessions = await _sessionService.GetAllPsychologistAndStudentSessionsAsync(studentId, psychologistId);
 
         return Ok(sessions);
     }
@@ -27,7 +27,7 @@ public class SessionsController : Controller
     [HttpGet("{id:Guid}", Name = nameof(SessionsController) + nameof(GetByIdAsync))]
     public async Task<IActionResult> GetByIdAsync(Guid id)
     {
-        var session = await _studentService.GetSessionByIdAsync(id);
+        var session = await _sessionService.GetSessionByIdAsync(id);
 
         return Ok(session);
     }
@@ -35,7 +35,7 @@ public class SessionsController : Controller
     [HttpPost]
     public async Task<IActionResult> CreateAsync([FromQuery] Guid studentId, [FromQuery] Guid psychologistId, [FromBody, Required] CreateAndUpdateSessionDto sessionDto)
     {
-        await _studentService.AddSessionAsync(studentId, psychologistId, sessionDto);
+        await _sessionService.AddSessionAsync(studentId, psychologistId, sessionDto);
 
         return Ok();
     }
@@ -43,7 +43,7 @@ public class SessionsController : Controller
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateAsync(Guid id, [FromBody, Required] CreateAndUpdateSessionDto sessionDto)
     {
-        await _studentService.UpdateSessionAsync(id, sessionDto);
+        await _sessionService.UpdateSessionAsync(id, sessionDto);
 
         return Ok();
     }
@@ -51,7 +51,7 @@ public class SessionsController : Controller
     [HttpPut("handle/{id}")]
     public async Task<IActionResult> HandleAsync(Guid id)
     {
-        await _studentService.HandleSessionAsync(id);
+        await _sessionService.HandleSessionAsync(id);
 
         return Ok();
     }
@@ -59,8 +59,16 @@ public class SessionsController : Controller
     [HttpDelete("{id:Guid}")]
     public async Task<IActionResult> DeleteAsync(Guid id)
     {
-        await _studentService.DeleteSessionIdAsync(id);
+        await _sessionService.DeleteSessionIdAsync(id);
 
         return NoContent();
+    }
+
+    [HttpGet("getSessionsForStudent")]
+    public async Task<IActionResult> GetSessionsForStudent([FromQuery] Guid studentId)
+    {
+        var sessions = await _sessionService.GetAllStudentSessionsAsync(studentId);
+
+        return Ok(sessions);
     }
 }

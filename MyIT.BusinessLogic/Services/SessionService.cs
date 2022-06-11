@@ -31,7 +31,17 @@ public class SessionService: ISessionService
         
         return _mapper.Map<IEnumerable<SessionDto>>(sessions);
     }
-    
+
+    public async Task<IEnumerable<SessionDto>> GetAllStudentSessionsAsync(Guid studentId)
+    {
+        var sessions = (await _sessionRepository.GetAsync(
+            filter: x => x.StudentId == studentId,
+            includeProperties: x => x.Include(s => s.Psychologist)))
+            .OrderBy(x => (x.IsHandled, x.Date));
+
+        return _mapper.Map<IEnumerable<SessionDto>>(sessions);
+    }
+
     public async Task<SessionDto> GetSessionByIdAsync(Guid sessionId)
     {
         // todo on role select all comments for psuchologist and only public for student
