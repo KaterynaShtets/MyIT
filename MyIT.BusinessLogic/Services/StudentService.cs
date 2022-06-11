@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using MyIT.BusinessLogic.DataTransferObjects;
+using MyIT.BusinessLogic.Helpers;
 using MyIT.BusinessLogic.Services.Interfaces;
 using MyIT.Contracts;
 using MyIT.DataAccess.Interfaces;
@@ -52,6 +54,24 @@ public class StudentService : IStudentService
         studentMapped.GroupId = student.GroupId;
         _studentRepository.Update(studentMapped);
         await _unitOfWork.SaveChangesAsync();
+    }
+    
+    public async Task UploadStudentPhotoStudentAsync(Guid studentId, IFormFile file)
+    {
+        var student = await _studentRepository.GetAsync(studentId);
+        var link = await S3Helper.UploadFile(file);
+        student.PhotoPath = link;
+        _studentRepository.Update(student);
+        await _unitOfWork.SaveChangesAsync();
+    }
+    
+    public async Task<(byte[], string)> GetStudentPhotoStudentAsync(Guid studentId)
+    {
+        var student = await _studentRepository.GetAsync(studentId);
+        var file = student.PhotoPath.Split("/");
+        var fileName = file.Last();
+        var image = await S3Helper.DownloadFileAsync(fileName);
+        return (image, fileName);
     }
 
     public async Task DeleteStudentAsync(Guid studentId)

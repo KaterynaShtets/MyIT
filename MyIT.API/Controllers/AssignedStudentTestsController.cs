@@ -22,6 +22,14 @@ public class AssignedStudentTestsController : Controller
         return Ok(tests);
     }
 
+    [HttpPost("upload")]
+    public async Task<IActionResult> UploadDocumentToS3([FromQuery] Guid assignedStudentTestId, IFormFile file)
+    {
+        await _testService.UploadTestImageAsync(assignedStudentTestId, file);
+
+        return Ok();
+    }
+    
     [HttpPost]
     public async Task<IActionResult> AssignTestAsync([FromQuery] Guid testId, [FromQuery] Guid studentId)
     {

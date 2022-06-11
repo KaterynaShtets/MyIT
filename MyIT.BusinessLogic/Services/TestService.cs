@@ -7,6 +7,7 @@ using MyIT.Contracts;
 using MyIT.DataAccess.Interfaces;
 using Newtonsoft.Json;
 using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Http;
 
 namespace MyIT.BusinessLogic.Services;
 
@@ -36,7 +37,16 @@ public class TestService : ITestService
         var test = await _testRepository.GetAsync(testId);
         return _mapper.Map<TestDto>(test);
     }
-
+    
+    public async Task UploadTestImageAsync(Guid assignedStudentTestId, IFormFile file)
+    {
+        var assignedStudentTest = await _assignedStudentTestRepository.GetAsync(assignedStudentTestId);
+        var link = await S3Helper.UploadFile(file);
+        assignedStudentTest.ResultJson = link;
+        _assignedStudentTestRepository.Update(assignedStudentTest);
+        await _unitOfWork.SaveChangesAsync();
+    }
+    
     public async Task AddTestAsync(Guid psychologistId, TestDto testDto)
     {
         var test = _mapper.Map<Test>(testDto);
