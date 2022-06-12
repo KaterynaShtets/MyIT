@@ -22,9 +22,22 @@ public class StudentService : IStudentService
         _mapper = mapper;
     }
 
-    public async Task<IEnumerable<StudentDto>> GetAllStudentsAsync(Guid groupId)
+    public async Task<IEnumerable<StudentDto>> GetAllStudentsByGroupAsync(Guid groupId)
     {
         var students = await _studentRepository.GetAsync(x => x.GroupId == groupId);
+        return _mapper.Map<IEnumerable<StudentDto>>(students);
+    }
+
+    public async Task<IEnumerable<StudentDto>> GetAllStudentsByUniversityAsync(Guid universityId)
+    {
+        var students = await _studentRepository.GetAsync(
+            x => x.Group.EducationalProgram.Faculty.University.Id == universityId);
+        return _mapper.Map<IEnumerable<StudentDto>>(students);
+    }
+
+    public async Task<IEnumerable<StudentDto>> GetAllStudentsAsync()
+    {
+        var students = await _studentRepository.GetAllAsync();
         return _mapper.Map<IEnumerable<StudentDto>>(students);
     }
 

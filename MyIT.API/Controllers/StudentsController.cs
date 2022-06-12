@@ -17,9 +17,25 @@ public class StudentsController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAllAsync([FromQuery] Guid groupId)
+    public async Task<IActionResult> GetAllByGroupAsync([FromQuery] Guid groupId)
     {
-        var students = await _studentService.GetAllStudentsAsync(groupId);
+        var students = await _studentService.GetAllStudentsByGroupAsync(groupId);
+
+        return Ok(students);
+    }
+
+    [HttpGet("getStudentsByUni")]
+    public async Task<IActionResult> GetAllByUniversityAsync([FromQuery] Guid universityId)
+    {
+        var students = await _studentService.GetAllStudentsByUniversityAsync(universityId);
+
+        return Ok(students);
+    }
+
+    [HttpGet("getAllStudents")]
+    public async Task<IActionResult> GetAllAsync()
+    {
+        var students = await _studentService.GetAllStudentsAsync();
 
         return Ok(students);
     }
