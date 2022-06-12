@@ -71,4 +71,12 @@ public class SessionsController : Controller
 
         return Ok(sessions);
     }
+
+    [HttpGet("getSessionsForPsychologist")]
+    public async Task<IActionResult> GetSessionsForPsychologist([FromQuery] Guid psychologistId)
+    {
+        var sessions = await _sessionService.GetAllPsychologistSessionsAsync(psychologistId);
+
+        return Ok(sessions);
+    }
 }
