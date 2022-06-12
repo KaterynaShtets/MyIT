@@ -32,6 +32,14 @@ public class StudentsController : Controller
         return Ok(students);
     }
 
+    [HttpGet("getStudentsByEdProgram")]
+    public async Task<IActionResult> GetAllByEdProgram([FromQuery] Guid edProgramId)
+    {
+        var students = await _studentService.GetAllStudentsByEdProgramAsync(edProgramId);
+
+        return Ok(students);
+    }
+
     [HttpGet("getAllStudents")]
     public async Task<IActionResult> GetAllAsync()
     {

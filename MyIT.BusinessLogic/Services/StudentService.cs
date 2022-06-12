@@ -28,6 +28,13 @@ public class StudentService : IStudentService
         return _mapper.Map<IEnumerable<StudentDto>>(students);
     }
 
+    public async Task<IEnumerable<StudentDto>> GetAllStudentsByEdProgramAsync(Guid edProgramId)
+    {
+        var students = await _studentRepository.GetAsync(
+            x => x.Group.EducationalProgram.Id == edProgramId);
+        return _mapper.Map<IEnumerable<StudentDto>>(students);
+    }
+
     public async Task<IEnumerable<StudentDto>> GetAllStudentsByUniversityAsync(Guid universityId)
     {
         var students = await _studentRepository.GetAsync(
