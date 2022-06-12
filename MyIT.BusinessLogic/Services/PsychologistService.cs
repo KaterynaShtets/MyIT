@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using MyIT.BusinessLogic.DataTransferObjects;
+using MyIT.BusinessLogic.Helpers;
 using MyIT.BusinessLogic.Services.Interfaces;
 using MyIT.Contracts;
 using MyIT.DataAccess.Interfaces;
@@ -59,6 +61,42 @@ public class PsychologistService : IPsychologistService
         await _unitOfWork.SaveChangesAsync();
     }
 
+    public async Task UploadPsychologistPhotoAsync(Guid psychologistId, IFormFile file)
+    {
+        var student = await _psychologistRepository.GetAsync(psychologistId);
+        var link = await S3Helper.UploadFile(file);
+        student.PhotoPath = link;
+        _psychologistRepository.Update(student);
+        await _unitOfWork.SaveChangesAsync();
+    }
+    
+    public async Task<(byte[], string)> GetPsychologistPhotoAsync(Guid psychologistId)
+    {
+        var student = await _psychologistRepository.GetAsync(psychologistId);
+        var file = student.PhotoPath.Split("/");
+        var fileName = file.Last();
+        var image = await S3Helper.DownloadFileAsync(fileName);
+        return (image, fileName);
+    }
+    
+    public async Task<(byte[], string)> GetPsychologistDiplomaAsync(Guid psychologistId)
+    {
+        var student = await _psychologistRepository.GetAsync(psychologistId);
+        var file = student.DiplomPath.Split("/");
+        var fileName = file.Last();
+        var image = await S3Helper.DownloadFileAsync(fileName);
+        return (image, fileName);
+    }
+    
+    public async Task UploadDiplomaPhotoAsync(Guid psychologistId, IFormFile file)
+    {
+        var student = await _psychologistRepository.GetAsync(psychologistId);
+        var link = await S3Helper.UploadFile(file);
+        student.DiplomPath = link;
+        _psychologistRepository.Update(student);
+        await _unitOfWork.SaveChangesAsync();
+    }
+    
     public async Task VerifyPsychologistAsync(Guid id)
     {
         var psychologist = await _psychologistRepository.GetAsync(id);

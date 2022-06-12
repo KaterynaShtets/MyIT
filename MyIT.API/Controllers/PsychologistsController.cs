@@ -55,6 +55,40 @@ public class PsychologistsController : Controller
 
         return Ok();
     }
+    
+    [HttpPost("uploadPhoto")]
+    public async Task<IActionResult> UploadPhotoToS3([FromQuery] Guid psychologistId, IFormFile file)
+    {
+        await _psychologistService.UploadPsychologistPhotoAsync(psychologistId, file);
+
+        return Ok();
+    }
+
+    [HttpGet("downloadPhoto/{psychologistId}")]
+    public async Task<IActionResult> GetDocumentFromS3(Guid psychologistId)
+    {
+
+        var document = await _psychologistService.GetPsychologistPhotoAsync(psychologistId);
+
+        return File(document.Item1, "application/octet-stream", document.Item2);
+    }
+    
+    [HttpPost("uploadDiploma")]
+    public async Task<IActionResult> UploadDiplomaToS3([FromQuery] Guid psychologistId, IFormFile file)
+    {
+        await _psychologistService.UploadDiplomaPhotoAsync(psychologistId, file);
+
+        return Ok();
+    }
+
+    [HttpGet("downloadDiploma/{psychologistId}")]
+    public async Task<IActionResult> GetDiplomaFromS3(Guid psychologistId)
+    {
+
+        var document = await _psychologistService.GetPsychologistDiplomaAsync(psychologistId);
+
+        return File(document.Item1, "application/octet-stream", document.Item2);
+    }
 
     [HttpDelete("{id:Guid}")]
     public async Task<IActionResult> DeleteAsync(Guid id)

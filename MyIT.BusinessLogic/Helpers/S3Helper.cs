@@ -63,6 +63,5 @@ public static class S3Helper
             throw new FileNotFoundException(string.Format("The document '{0}' is not found", file));
 
         return ms.ToArray();
-
     }
 }
