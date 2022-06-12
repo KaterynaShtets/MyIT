@@ -39,7 +39,11 @@ public class AuthenticationController : Controller
 
         var response = await cognito.InitiateAuthAsync(request);
 
-        return Ok(response.AuthenticationResult);
+        return Ok(new AuthResponse()
+        {
+            Token = response.AuthenticationResult.AccessToken,
+            Id = user.Username
+        });
     }
 
     [HttpPost]
