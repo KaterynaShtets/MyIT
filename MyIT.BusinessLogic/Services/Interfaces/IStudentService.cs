@@ -5,7 +5,10 @@ namespace MyIT.BusinessLogic.Services.Interfaces;
 
 public interface IStudentService
 {
-    Task<IEnumerable<StudentDto>> GetAllStudentsAsync(Guid groupId);
+    Task<IEnumerable<StudentDto>> GetAllStudentsByGroupAsync(Guid groupId);
+    Task<IEnumerable<StudentDto>> GetAllStudentsByEdProgramAsync(Guid edProgramId);
+    Task<IEnumerable<StudentDto>> GetAllStudentsByUniversityAsync(Guid universityId);
+    Task<IEnumerable<StudentDto>> GetAllStudentsAsync();
     Task<StudentDto> GetStudentByIdAsync(Guid studentId);
     Task AddStudentAsync(Guid groupId, StudentDto studentDto);
     Task UpdateStudentAsync(Guid id, StudentDto studentDto);

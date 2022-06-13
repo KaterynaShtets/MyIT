@@ -37,9 +37,21 @@ public class AuthenticationController : Controller
         request.AuthParameters.Add("USERNAME", user.Username);
         request.AuthParameters.Add("PASSWORD", user.Password);
 
+        Psychologist psych = await _psychologistService.GetPsychologistByEmailAsync(user.Username);
+
         var response = await cognito.InitiateAuthAsync(request);
 
-        return Ok(response.AuthenticationResult);
+        var result = new AuthResponse()
+        {
+            Token = response.AuthenticationResult.AccessToken
+        };
+
+        if(result != null)
+        {
+            result.UserData = psych;
+        }
+
+        return Ok(result);
     }
 
     [HttpPost]

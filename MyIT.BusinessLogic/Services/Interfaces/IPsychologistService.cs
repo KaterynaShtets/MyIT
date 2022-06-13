@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using MyIT.BusinessLogic.DataTransferObjects;
+using MyIT.Contracts;
 
 namespace MyIT.BusinessLogic.Services.Interfaces;
 
@@ -17,4 +18,5 @@ public interface IPsychologistService
     Task UploadDiplomaPhotoAsync(Guid psychologistId, IFormFile file);
     Task<(byte[], string)> GetPsychologistPhotoAsync(Guid psychologistId);
     Task<(byte[], string)> GetPsychologistDiplomaAsync(Guid psychologistId);
+    Task<Psychologist> GetPsychologistByEmailAsync(string email);
 }
