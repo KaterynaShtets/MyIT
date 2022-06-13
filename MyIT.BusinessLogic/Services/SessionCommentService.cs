@@ -32,7 +32,7 @@ public class SessionCommentService : ISessionCommentService
         return _mapper.Map<SessionCommentDto>(sessionComment);
     }
 
-    public async Task AddSessionCommentAsync(Guid sessionId, SessionCommentDto sessionCommentDto)
+    public async Task AddSessionCommentAsync(Guid sessionId, CreateSessionDtoComment sessionCommentDto)
     {
         var sessionComment = _mapper.Map<SessionComment>(sessionCommentDto);
         sessionComment.SessionId = sessionId;

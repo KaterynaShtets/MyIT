@@ -35,6 +35,9 @@ public class MappingProfile : Profile
         CreateMap<SessionCommentDto, SessionComment>()
             .ReverseMap();
         
+        CreateMap<CreateSessionDtoComment, SessionComment>()
+            .ReverseMap();
+        
         CreateMap<SpecialityDto, Speciality>()
             .ReverseMap();
         

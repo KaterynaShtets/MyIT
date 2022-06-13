@@ -34,7 +34,7 @@ public class SessionCommentsController: Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateAsync([FromQuery] Guid sessionId, [FromBody, Required] SessionCommentDto sessionCommentDto)
+    public async Task<IActionResult> CreateAsync([FromQuery] Guid sessionId, [FromBody, Required] CreateSessionDtoComment sessionCommentDto)
     {
         await _sessionCommentService.AddSessionCommentAsync(sessionId, sessionCommentDto);
 
