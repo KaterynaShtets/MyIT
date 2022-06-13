@@ -10,6 +10,6 @@ namespace MyIT.Contracts
     {
         public string Token { get; set; }
 
-        public string Id { get; set; }
+        public Psychologist UserData { get; set; }
     }
 }

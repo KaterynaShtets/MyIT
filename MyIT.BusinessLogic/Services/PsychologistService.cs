@@ -119,4 +119,13 @@ public class PsychologistService : IPsychologistService
         var psychologists = psychologistSpecialties.Select(x => x.Psychologist);
         return _mapper.Map<IEnumerable<PsychologistDto>>(psychologists);
     }
+
+    public async Task<Psychologist> GetPsychologistByEmailAsync(string email)
+    {
+        var psychologists = await _psychologistRepository.GetAsync(x => x.Email == email);
+
+        var psych = psychologists.FirstOrDefault();
+
+        return psych;
+    }
 }
