@@ -4,10 +4,10 @@ public enum JobPosition
 {
     ProjectManager,
     Developer,
-    QAEngineer,
+    QualityAssuranceEngineer,
     Designer,
     BusinessAnalyst,
     SoftwareArchitect,
-    HR,
+    HumanResources,
     DevOps
 }

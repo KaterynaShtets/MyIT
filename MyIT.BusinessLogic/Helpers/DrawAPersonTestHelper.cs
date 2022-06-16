@@ -18,7 +18,7 @@ public static class DrawAPersonTestHelper
             new DrawAPersonInterpretationResult
             {
                 PersonType = PersonType.ResponsibleExecutor,
-                JobPositions = new [] { JobPosition.Designer , JobPosition.Developer, JobPosition.QAEngineer}
+                JobPositions = new [] { JobPosition.Designer , JobPosition.Developer, JobPosition.QualityAssuranceEngineer }
             },
             new[] { 505, 514, 523, 532, 541, 550 }
         },
@@ -26,7 +26,7 @@ public static class DrawAPersonTestHelper
             new DrawAPersonInterpretationResult
             {
                 PersonType = PersonType.AnxiousAndSuspicious,
-                JobPositions = new [] { JobPosition.Designer , JobPosition.QAEngineer, JobPosition.HR}
+                JobPositions = new [] { JobPosition.Designer , JobPosition.QualityAssuranceEngineer, JobPosition.HumanResources}
             },
             new[] { 406, 415, 424, 433, 442, 451, 460 }
         },
@@ -34,7 +34,7 @@ public static class DrawAPersonTestHelper
             new DrawAPersonInterpretationResult
             {
                 PersonType = PersonType.Scientist,
-                JobPositions = new [] { JobPosition.DevOps , JobPosition.QAEngineer, JobPosition.SoftwareArchitect}
+                JobPositions = new [] { JobPosition.DevOps , JobPosition.QualityAssuranceEngineer, JobPosition.SoftwareArchitect}
             },
             new[] { 316, 325, 334, 343, 352, 361, 370 }
         },
@@ -59,7 +59,7 @@ public static class DrawAPersonTestHelper
             new DrawAPersonInterpretationResult
             {
                 PersonType = PersonType.Emotive,
-                JobPositions = new [] { JobPosition.Designer , JobPosition.BusinessAnalyst, JobPosition.HR}
+                JobPositions = new [] { JobPosition.Designer , JobPosition.BusinessAnalyst, JobPosition.HumanResources}
             },
             new[] { 253, 262, 154, 163, 172, 181, 190, 055, 064, 073, 082, 091 }
         },
@@ -67,7 +67,7 @@ public static class DrawAPersonTestHelper
             new DrawAPersonInterpretationResult
             {
                 PersonType = PersonType.NonEmotive,
-                JobPositions = new [] { JobPosition.Developer , JobPosition.QAEngineer, JobPosition.ProjectManager}
+                JobPositions = new [] { JobPosition.Developer , JobPosition.QualityAssuranceEngineer, JobPosition.ProjectManager}
             },
             new[] { 901, 802, 703, 604, 307,  109 }
         }
