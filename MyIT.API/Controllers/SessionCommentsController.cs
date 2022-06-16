@@ -24,6 +24,14 @@ public class SessionCommentsController: Controller
 
         return Ok(sessionComments);
     }
+
+    [HttpGet("commentsForStudent")]
+    public async Task<IActionResult> GetCommentsByStudentAsync([FromQuery] Guid studentId)
+    {
+        var comments = await _sessionCommentService.GetAllSessionCommentsByStudentAsync(studentId);
+
+        return Ok(comments);
+    }
     
     [HttpGet("{id:Guid}", Name = nameof(SessionCommentsController) + nameof(GetByIdAsync))]
     public async Task<IActionResult> GetByIdAsync(Guid id)

@@ -5,6 +5,7 @@ namespace MyIT.BusinessLogic.Services.Interfaces;
 public interface ISessionCommentService
 {
     Task<IEnumerable<SessionCommentDto>> GetAllSessionCommentsAsync(Guid sessionId);
+    Task<IEnumerable<object>> GetAllSessionCommentsByStudentAsync(Guid studentId);
     Task<SessionCommentDto> GetSessionCommentByIdAsync(Guid sessionCommentId);
     Task AddSessionCommentAsync(Guid sessionId, CreateSessionDtoComment sessionCommentDto);
     Task UpdateGroupAsync(Guid id, SessionCommentDto sessionCommentDto);

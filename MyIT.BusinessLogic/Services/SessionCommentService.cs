@@ -26,6 +26,20 @@ public class SessionCommentService : ISessionCommentService
         return _mapper.Map<IEnumerable<SessionCommentDto>>(sessionComments);
     }
 
+    public async Task<IEnumerable<object>> GetAllSessionCommentsByStudentAsync(Guid studentId)
+    {
+        var sessionComments =
+            (await _sessionCommentRepository.GetAsync(x => x.Session.StudentId == studentId, includeProperties: x => x.Include(x => x.Session.Psychologist)))
+            .Select(x => new
+            {
+                Psychologist = x.Session.Psychologist.FullName,
+                Time = x.Session.Date,
+                Comment = x.Comment
+            });
+
+        return sessionComments;
+    }
+
     public async Task<SessionCommentDto> GetSessionCommentByIdAsync(Guid sessionCommentId)
     {
         var sessionComment = await _sessionCommentRepository.GetAsync(sessionCommentId);
