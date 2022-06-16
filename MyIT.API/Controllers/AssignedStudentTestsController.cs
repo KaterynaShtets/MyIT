@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyIT.BusinessLogic.Services.Interfaces;
+using MyIT.Contracts;
 
 namespace MyIT.API.Controllers;
 
@@ -39,9 +40,9 @@ public class AssignedStudentTestsController : Controller
     }
 
     [HttpPost("{assignedTestId}")]
-    public async Task<IActionResult> AddTestResultAsync([FromRoute] Guid assignedTestId, [FromBody] string resultJson)
+    public async Task<IActionResult> AddTestResultAsync([FromRoute] Guid assignedTestId, [FromBody] ResultContent resultJson)
     {
-        await _testService.AddTestResultAsync(assignedTestId, resultJson);
+        await _testService.AddTestResultAsync(assignedTestId, resultJson.Result);
 
         return Ok();
     }
