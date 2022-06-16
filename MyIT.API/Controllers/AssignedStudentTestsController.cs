@@ -26,9 +26,9 @@ public class AssignedStudentTestsController : Controller
     [HttpPost("upload")]
     public async Task<IActionResult> UploadDocumentToS3([FromQuery] Guid assignedStudentTestId, IFormFile file)
     {
-        await _testService.UploadTestImageAsync(assignedStudentTestId, file);
+        var link = await _testService.UploadTestImageAsync(assignedStudentTestId, file);
 
-        return Ok();
+        return Ok(link);
     }
     
     [HttpPost]

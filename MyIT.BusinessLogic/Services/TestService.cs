@@ -38,13 +38,14 @@ public class TestService : ITestService
         return _mapper.Map<TestDto>(test);
     }
     
-    public async Task UploadTestImageAsync(Guid assignedStudentTestId, IFormFile file)
+    public async Task<string> UploadTestImageAsync(Guid assignedStudentTestId, IFormFile file)
     {
         var assignedStudentTest = await _assignedStudentTestRepository.GetAsync(assignedStudentTestId);
         var link = await S3Helper.UploadFile(file);
         assignedStudentTest.ResultJson = link;
         _assignedStudentTestRepository.Update(assignedStudentTest);
         await _unitOfWork.SaveChangesAsync();
+        return link;
     }
     
     public async Task AddTestAsync(Guid psychologistId, TestDto testDto)

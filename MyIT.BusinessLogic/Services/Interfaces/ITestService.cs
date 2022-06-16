@@ -14,5 +14,5 @@ public interface ITestService
     Task DeleteTestAsync(Guid testId);
     Task AddTestResultAsync(Guid assignedTestId, string resultJson);
     Task<ProfessionTestsResult> GetLastProfessionTestsResult(Guid studentId);
-    Task UploadTestImageAsync(Guid assignedStudentTestId, IFormFile file);
+    Task<string> UploadTestImageAsync(Guid assignedStudentTestId, IFormFile file);
 }
