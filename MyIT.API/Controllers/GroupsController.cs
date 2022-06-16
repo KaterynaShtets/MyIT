@@ -23,6 +23,14 @@ public class GroupsController : Controller
 
         return Ok(groups);
     }
+
+    [HttpGet("all")]
+    public async Task<IActionResult> GetAllGroupsAsync()
+    {
+        var groups = await _groupService.GetAllGroupsAsync();
+
+        return Ok(groups);
+    }
     
     [HttpGet("{id:Guid}", Name = nameof(GroupsController) + nameof(GetByIdAsync))]
     public async Task<IActionResult> GetByIdAsync(Guid id)

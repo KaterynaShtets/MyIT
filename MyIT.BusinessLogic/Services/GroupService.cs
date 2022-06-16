@@ -21,16 +21,23 @@ public class GroupService : IGroupService
 
     public async Task<IEnumerable<GroupDto>> GetAllGroupsAsync(Guid educationalProgramId)
     {
-        var groups =  await _groupRepository.GetAsync(x=>x.EducationalProgramId == educationalProgramId);
+        var groups = await _groupRepository.GetAsync(x => x.EducationalProgramId == educationalProgramId);
         return _mapper.Map<IEnumerable<GroupDto>>(groups);
     }
-    
+
+    public async Task<IEnumerable<GroupDto>> GetAllGroupsAsync()
+    {
+        var groups = await _groupRepository.GetAllAsync();
+
+        return _mapper.Map<IEnumerable<GroupDto>>(groups);
+    }
+
     public async Task<GroupDto> GetGroupByIdAsync(Guid groupId)
     {
         var group = await _groupRepository.GetAsync(groupId);
         return _mapper.Map<GroupDto>(group);
     }
-    
+
     public async Task AddGroupAsync(Guid educationalProgramId, GroupDto groupDto)
     {
         var group = _mapper.Map<Group>(groupDto);
@@ -39,7 +46,7 @@ public class GroupService : IGroupService
 
         await _unitOfWork.SaveChangesAsync();
     }
-    
+
     public async Task UpdateGroupAsync(Guid id, GroupDto groupDto)
     {
         var group = await _groupRepository.GetAsync(id);
@@ -49,7 +56,7 @@ public class GroupService : IGroupService
         _groupRepository.Update(groupMapped);
         await _unitOfWork.SaveChangesAsync();
     }
-    
+
     public async Task DeleteGroupAsync(Guid groupId)
     {
         _groupRepository.Delete(groupId);
